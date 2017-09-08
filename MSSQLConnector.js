@@ -1,4 +1,5 @@
 var db = require('mssql');
+var dbConnection = "";
 
 //connect
 var fieldIdentifier_left = '[',
@@ -42,7 +43,7 @@ function connect(json, cb) {
     }
   }
   // cb(config);
-  db.connect(config, err => {
+  dbConnection = db.connect(config, err => {
     if(err){
       cb(err, null);
     } else {
@@ -59,7 +60,7 @@ exports.disconnect = function() {
 }
 
 function disconnect(connection) {
-  connection.end();
+  dbConnection.close();
 }
 
 //prepare query
